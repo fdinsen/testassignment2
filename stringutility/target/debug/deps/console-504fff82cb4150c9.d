@@ -1,0 +1,11 @@
+c:\Users\gamma\OneDriveEFIF\OneDrive - EFIF\CPH Business\Software Development\Test\Assignment2\stringutility\target\debug\deps\console-504fff82cb4150c9.rmeta: C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\lib.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\common_term.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\kb.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\term.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\utils.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\windows_term.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\ansi.rs
+
+c:\Users\gamma\OneDriveEFIF\OneDrive - EFIF\CPH Business\Software Development\Test\Assignment2\stringutility\target\debug\deps\console-504fff82cb4150c9.d: C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\lib.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\common_term.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\kb.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\term.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\utils.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\windows_term.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\ansi.rs
+
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\lib.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\common_term.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\kb.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\term.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\utils.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\windows_term.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\console-0.15.1\src\ansi.rs:
