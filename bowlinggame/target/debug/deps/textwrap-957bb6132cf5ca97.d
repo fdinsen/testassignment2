@@ -1,0 +1,11 @@
+c:\Users\gamma\OneDriveEFIF\OneDrive - EFIF\CPH Business\Software Development\Test\Assignment2\bowlinggame\target\debug\deps\textwrap-957bb6132cf5ca97.rmeta: C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\lib.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\indentation.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\word_separators.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\word_splitters.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\wrap_algorithms.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\line_ending.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\core.rs
+
+c:\Users\gamma\OneDriveEFIF\OneDrive - EFIF\CPH Business\Software Development\Test\Assignment2\bowlinggame\target\debug\deps\textwrap-957bb6132cf5ca97.d: C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\lib.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\indentation.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\word_separators.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\word_splitters.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\wrap_algorithms.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\line_ending.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\core.rs
+
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\lib.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\indentation.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\word_separators.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\word_splitters.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\wrap_algorithms.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\line_ending.rs:
+C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\textwrap-0.15.1\src\core.rs:
