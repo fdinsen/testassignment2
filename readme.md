@@ -18,14 +18,15 @@ Images of test results can be found at the bottom of this readme.
 ## 1. Reflections
 ### 1. Computer Mouse
 *Identify the types of testing you would perform on a computer mouse, to make sure that it is of the highest quality.*
-Accuracy test for sensor
-Test connection through wire
-Test that each button is working
-Stress test each button to see how long it takes for them to break
-Damage test
+- Accuracy test for sensor
+- Test connection through wire
+- Test that each button is working
+- Stress test each button to see how long it takes for them to break
+- Damage test
 
 ### 2. Catastrophic Failure
 *Find a story where a software system defect had a bad outcome. Describe what happened. Can you identify a test that would have prevented it?*
+
 In 2005 a new raid was released in World of Warcraft, in which one of the bosses gave a plague effect to the players, that would spread between them. The bug occurred when some players with pet companions deactivated them while they were affected by the plague. By deactivating them, the plague was able to be carried out of the raid and into the open world, which started a pandemic that resulted in dead bodies being spread across the major cities.
 
 This is a bug occurring in the integration between different parts of the system (that being the plague effect and the player companions). To have caught it a test making sure that the plague effect was cleared when leaving the raid would have not just been needed for players, but also for their companions. It is such a niché interaction that in order to have caught it, a tester would have had to have foreseen it.
