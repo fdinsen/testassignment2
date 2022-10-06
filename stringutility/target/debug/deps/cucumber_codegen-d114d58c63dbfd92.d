@@ -1,9 +1,0 @@
-c:\Users\gamma\OneDriveEFIF\OneDrive - EFIF\CPH Business\Software Development\Test\Assignment2\stringutility\target\debug\deps\cucumber_codegen-d114d58c63dbfd92.dll: C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\lib.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\attribute.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\parameter.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\world.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\../README.md
-
-c:\Users\gamma\OneDriveEFIF\OneDrive - EFIF\CPH Business\Software Development\Test\Assignment2\stringutility\target\debug\deps\cucumber_codegen-d114d58c63dbfd92.d: C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\lib.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\attribute.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\parameter.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\world.rs C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\../README.md
-
-C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\lib.rs:
-C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\attribute.rs:
-C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\parameter.rs:
-C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\world.rs:
-C:\Users\gamma\.cargo\registry\src\github.com-1ecc6299db9ec823\cucumber-codegen-0.14.2\src\../README.md:
