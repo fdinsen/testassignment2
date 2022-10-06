@@ -1,4 +1,17 @@
 # Readme
+Repository for Test Assignment 2. Solutions to Katas found in /stringutility and /bowlinggame. Examples of the two mocking libraries are found in /mocking. 
+Gherkin .feature files are found in /feature folder inside either project. Tests can be found in /tests folder of either project. 
+
+To run unit tests, navigate to folder of either of the projects and run:
+```
+cargo test --test unittests
+```
+and to run acceptance tests, run:
+```
+cargo test --test acceptancetests
+```
+
+Images of test results can be found at the bottom of this readme.
 
 # Assignment 2
 
@@ -55,3 +68,15 @@ Additionally Mockall not only allows for expecting a specific return value, but 
 Mock-it is nice because it requires the tester to be more explicit in what they expect. It reads more cleanly to someone not familiar with the library, since the setup of what the Mocked method is supposed to return is separate from the assertions, allowing the test to be split into clear "given", "when", "then" sections. With Mockall "when" and "then" blur together, which is not great. I also really like Mock-it's motto: "Mock it, don't mock all 🙃"
 
 However, it does result in more boilerplate code. Additionally Mockall is a more powerful library, meaning it has less constraints and more community support (both are open-source). In contrast to Mockall, Mock-it doesn't support mocking structs, only traits. I also really like being able to define a closure for the mocked method, because it allows me to construct the returned object based on the values on the one passed to it. So despite above mentioned points, I will be using Mockall in the future. 
+
+# Test Results
+## Unit Test Results
+### Stringutility
+![Stringutility Unit Test Results](./stringutilityunit.png)
+### Bowling Game
+![Bowling game Unit Test Results](./bowlingunit.png)
+## Acceptance Tests
+### Stringutility
+![Stringutility Acceptance Test Results](./stringutilityacceptance.png)
+### Bowling Game
+![Bowling Game Acceptance Test Results](./bowlingacceptance.png)
