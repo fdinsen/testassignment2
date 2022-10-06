@@ -34,22 +34,23 @@ This is a bug occurring in the integration between different parts of the system
 ## 3. Investigation of Tools
 ### 1. JUnit5
 *Investigate JUnit 5 (Jupiter). Explain the following and how they are useful.*
-#### @Tag
+- @Tag
   - Used to allow filtering of which tests are executed based on tags. So for example only running database related tests.
-#### @Disabled
+- @Disabled
   - Temporarily disables a test without having to delete it.
-#### @RepeatedTest
+- @RepeatedTest
   - Repeats a test the given amount of times. By using together with @ParameterizedTest it is possible to run the test with different arugments each time.
-#### @BeforeEach, @AfterEach
+- @BeforeEach, @AfterEach
   - Runs the given method before or after each test. Allows for setup and cleanup before and after each test.
-#### @BeforeAll, @AfterAll
+- @BeforeAll, @AfterAll
   - Runs the given method before or after all tests. Allows for setup and cleanup before and after all tests.
-#### @DisplayName
+- @DisplayName
   - Allows for declaring a custom name for a test, different from the method name. Allows for more specific test names than otherwise.
-#### @Nested
+- @Nested
    -  Allows for splitting tests into multiple different classes within a file, for better categorization. Great for when testing a large class with multiple hundreds of lines.
-#### assumeFalse, assumeTrue
+- assumeFalse, assumeTrue
   - failed assumptions do not result in test failure, but just aborts the test. Useful whenever it does not make sense to continue execution of a given test method, if for example the test depends on something that ends up not existing. 
+
 ### 2. Mocking Frameworks
 *Investigate mocking frameworks for your preferred language. Choose at least two frameworks, and answer the questions.*
 
