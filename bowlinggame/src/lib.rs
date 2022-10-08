@@ -1,56 +1,244 @@
+mod err;
+use err::{BowlingErr};
+
 #[derive(Debug)]
 pub struct Game {
-    rolls: Vec<u8>,
-    current_roll: usize
+    frames: Vec<Frame>,
+    current_frame: usize,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+enum Frame {
+    SimpleFrame(Option<u8>, Option<u8>),
+    TenthFrame(Option<u8>, Option<u8>, Option<u8>),
+    NoneFrame,
+}
+
+#[derive(Debug)]
+pub enum FrameResult {
+    Strike,
+    Spare(u8),
+    Hit(u8, u8),
+    FinalHit(u8, u8, u8),
 }
 
 impl Game {
     pub fn new() -> Self {
-        Self { rolls: vec![0;21], current_roll:0}
+        let mut game = Self {
+            frames: vec![Frame::empty_simple(); 9],
+            current_frame: 0,
+        };
+        game.frames.push(Frame::empty_tenth());
+        game
     }
-    
-    pub fn roll(&mut self, pins: i32) {
-        self.rolls[self.current_roll] = pins as u8;
-        self.current_roll += 1;
+
+    pub fn roll(&mut self, pins: i32) -> Result<(), BowlingErr>{
+        let frame = get_frame(&self.frames, self.current_frame);
+        if frame == Frame::NoneFrame {return Err(BowlingErr::NoRollsLeft)}
+        self.frames[self.current_frame] = match Frame::roll(frame.clone(), pins as u8) {
+            Ok(frame) => frame, 
+            Err(e) => {
+                match e {
+                    BowlingErr::NoRollsLeft => {
+                        self.current_frame += 1;
+                        let nextframe = match self.frames.get(self.current_frame) {
+                            None => {
+                                return Err(BowlingErr::NoRollsLeft);
+                            },
+                            Some(nextframe) => nextframe,
+                        };
+                        Frame::roll(nextframe.clone(), pins as u8)?
+                    },
+                    BowlingErr::TooManyPins(i) => {return Err(BowlingErr::TooManyPins(i));}
+                }
+            }
+        };
+        Ok(())
     }
 
     pub fn score(&self) -> i32 {
-        let mut score:i32 = 0;
-        let mut frame_index = 0;
-        for _ in 0..10 {
-            if self.is_strike(frame_index) {
-                score += 10 + self.strike_bonus(frame_index);
-                frame_index += 1;
-            }
-            else if self.is_spare(frame_index){
-                score += 10 + self.spare_bonus(frame_index);
-                frame_index += 2;
-            } else {
-                score += self.sum_balls_in_frame(frame_index);
-                frame_index += 2;
-            }
+        let mut score: i32 = 0;
+        let mut index = 0;
+        let frames = self.frames.clone();
+        for frame in frames {
+            match Frame::score(frame) {
+                FrameResult::Hit(r1, r2) => score += (r1 + r2) as i32,
+                FrameResult::Spare(_) => {
+                    score += 10 + spare_bonus(
+                        get_frame(&self.frames,index + 1)
+                    );
+                },
+                FrameResult::Strike => {
+                    score += 10 + strike_bonus(
+                        &self.frames, 
+                        get_frame(&self.frames, index + 1), 
+                        index
+                    );
+                },
+                FrameResult::FinalHit(r1, r2, r3) => score += (r1 + r2 + r3) as i32,
+            };
+            index += 1;
         }
         score
     }
+}
 
-    fn is_spare(&self, frame_index: usize) -> bool {
-        self.rolls[frame_index] + self.rolls[frame_index + 1] == 10 
+impl Frame {
+    pub fn empty_simple() -> Self {
+        Frame::SimpleFrame(None, None)
     }
 
-    fn is_strike(&self, frame_index: usize) -> bool {
-        self.rolls[frame_index] == 10 
+    pub fn empty_tenth() -> Self {
+        Frame::TenthFrame(None, None, None)
     }
 
-    fn strike_bonus(&self, frame_index: usize) -> i32 {
-        self.rolls[frame_index+1] as i32 + self.rolls[frame_index+2] as i32
+    pub fn roll(mut frame: Frame, pins: u8) -> Result<Frame, BowlingErr> {
+        if pins > 10 {
+            return Err(BowlingErr::TooManyPins(pins));
+        };
+        match frame {
+            Frame::SimpleFrame(r1, r2) => {
+                frame = Self::roll_simple_frame(pins, r1, r2)?;
+            }
+            Frame::TenthFrame(r1, r2, r3) => {
+                frame = Self::roll_tenth_frame(pins, r1, r2, r3)?;
+            },
+            Frame::NoneFrame => return Err(BowlingErr::NoRollsLeft)
+        }
+        Ok(frame)
     }
 
-    fn spare_bonus(&self, frame_index: usize) -> i32 {
-        self.rolls[frame_index+2] as i32
+    pub fn score(frame: Frame) -> FrameResult {
+        match frame {
+            Frame::SimpleFrame(r1, r2) => {
+                let r1pins = r1.unwrap_or(0u8);
+                let r2pins = r2.unwrap_or(0u8);
+                if is_strike(r1pins) {
+                    return FrameResult::Strike;
+                }
+                if is_spare(r1pins, r2pins) {
+                    return FrameResult::Spare(r1pins);
+                }
+                FrameResult::Hit(r1pins, r2pins)
+            }
+            Frame::TenthFrame(r1, r2, r3) => {
+                let r1pins = r1.unwrap_or(0u8);
+                let r2pins = r2.unwrap_or(0u8);
+                let r3pins = r3.unwrap_or(0u8);
+                FrameResult::FinalHit(r1pins, r2pins, r3pins)
+            },
+            Frame::NoneFrame => FrameResult::Hit(0,0)
+        }
     }
 
-    fn sum_balls_in_frame(&self, frame_index: usize) -> i32 {
-        self.rolls[frame_index] as i32 + 
-        self.rolls[frame_index+1] as i32
+    fn roll_simple_frame(pins: u8, mut r1: Option<u8>, mut r2: Option<u8>) -> Result<Frame, BowlingErr> {
+        let r1pins = match r1 {
+            None => {
+                r1 = Some(pins);
+                return Ok(Frame::SimpleFrame(r1, None));
+            }
+            Some(pin) => {
+                if pin == 10u8 {
+                    return Err(BowlingErr::NoRollsLeft);
+                }
+                pin
+            }
+        };
+        match r2 {
+            None => {
+                if r1pins + pins > 10u8 {
+                    return Err(BowlingErr::TooManyPins(r1pins + pins));
+                };
+                r2 = Some(pins);
+                pins
+            }
+            Some(_) => {
+                return Err(BowlingErr::NoRollsLeft);
+            }
+        };
+        Ok(Frame::SimpleFrame(r1, r2))
+    }
+
+    fn roll_tenth_frame(pins: u8,mut r1: Option<u8>, mut r2: Option<u8>, mut r3: Option<u8>) -> Result<Frame, BowlingErr> {
+        let r1pins = match r1 {
+            None => {
+                r1 = Some(pins);
+                return Ok(Frame::TenthFrame(r1, None, None));
+            }
+            Some(pin) => pin,
+        };
+        let r2pins = match r2 {
+            None => {
+                if r1pins + pins > 20u8 {
+                    return Err(BowlingErr::TooManyPins(r1pins + pins));
+                };
+                r2 = Some(pins);
+                return Ok(Frame::TenthFrame(Some(r1pins), r2, None));
+            }
+            Some(pin) => pin,
+        };
+        match r3 {
+            None => {
+                if r1pins + r2pins + pins > 30u8 {
+                    return Err(BowlingErr::TooManyPins(r1pins + pins));
+                };
+                if is_strike(r2pins) || is_spare(r1pins, r2pins) {
+                    r3 = Some(pins);
+                    pins
+                } else {
+                    return Err(BowlingErr::NoRollsLeft);
+                }
+            }
+            Some(_) => return Err(BowlingErr::NoRollsLeft),
+        };
+        Ok(Frame::TenthFrame(r1, r2, r3))
+    }
+}
+
+fn is_strike(pins: u8) -> bool {
+    pins.to_owned() == 10u8
+}
+
+fn is_spare(r1: u8, r2: u8) -> bool {
+    r1 + r2 == 10u8
+}
+
+fn second_strike_bonus(frame: Frame) -> i32 {
+    match Frame::score(frame) {
+        FrameResult::Strike => 10,
+        FrameResult::Spare(r1) => r1 as i32,
+        FrameResult::Hit(r1, _) => r1 as i32,
+        FrameResult::FinalHit(r1, _, _) => r1 as i32,
+    }
+}
+
+fn spare_bonus(frame: Frame) -> i32 {
+    match Frame::score(frame) {
+        FrameResult::Strike => 10,
+        FrameResult::Spare(r1) => r1 as i32,
+        FrameResult::Hit(r1, _) => r1 as i32,
+        FrameResult::FinalHit(r1,_,_) => r1 as i32,
+    }
+}
+
+fn strike_bonus(frames: &Vec<Frame>, frame: Frame, frame_index: usize) -> i32 {
+    match Frame::score(frame) {
+        FrameResult::Strike => {
+            return 10 + second_strike_bonus(
+                get_frame(frames, frame_index+2)
+            );
+        },
+        FrameResult::Spare(_) => 10,
+        FrameResult::Hit(r1, r2) => (r1 + r2) as i32,
+        FrameResult::FinalHit(r1, r2, _) => (r1 + r2) as i32,
+    }
+}
+
+fn get_frame(frames: &Vec<Frame>,  frame_index: usize) -> Frame {
+    match frames.get(frame_index) {
+        None => {
+            Frame::NoneFrame
+        },
+        Some(frame) => frame.clone(),
     }
 }
