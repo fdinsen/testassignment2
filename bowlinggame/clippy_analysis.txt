@@ -1,0 +1,131 @@
+warning: variant name ends with the enum's name
+  --> src\lib.rs:12:5
+   |
+12 |     SimpleFrame(Option<u8>, Option<u8>),
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(clippy::enum_variant_names)]` on by default
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#enum_variant_names
+
+warning: variant name ends with the enum's name
+  --> src\lib.rs:13:5
+   |
+13 |     TenthFrame(Option<u8>, Option<u8>, Option<u8>),
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#enum_variant_names
+
+warning: variant name ends with the enum's name
+  --> src\lib.rs:14:5
+   |
+14 |     NoneFrame,
+   |     ^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#enum_variant_names
+
+warning: all variants have the same postfix: `Frame`
+  --> src\lib.rs:11:1
+   |
+11 | / enum Frame {
+12 | |     SimpleFrame(Option<u8>, Option<u8>),
+13 | |     TenthFrame(Option<u8>, Option<u8>, Option<u8>),
+14 | |     NoneFrame,
+15 | | }
+   | |_^
+   |
+   = help: remove the postfixes and use full paths to the variants instead of glob imports
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#enum_variant_names
+
+warning: you should consider adding a `Default` implementation for `Game`
+  --> src\lib.rs:26:5
+   |
+26 | /     pub fn new() -> Self {
+27 | |         let mut game = Self {
+28 | |             frames: vec![Frame::empty_simple(); 9],
+29 | |             current_frame: 0,
+...  |
+32 | |         game
+33 | |     }
+   | |_____^
+   |
+   = note: `#[warn(clippy::new_without_default)]` on by default
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#new_without_default
+help: try adding this
+   |
+25 + impl Default for Game {
+26 +     fn default() -> Self {
+27 +         Self::new()
+28 +     }
+29 + }
+   |
+
+warning: redundant clone
+  --> src\lib.rs:38:66
+   |
+38 |         self.frames[self.current_frame] = match Frame::roll(frame.clone(), pins as u8) {
+   |                                                                  ^^^^^^^^ help: remove this
+   |
+   = note: `#[warn(clippy::redundant_clone)]` on by default
+note: this value is dropped without further use
+  --> src\lib.rs:38:61
+   |
+38 |         self.frames[self.current_frame] = match Frame::roll(frame.clone(), pins as u8) {
+   |                                                             ^^^^^
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#redundant_clone
+
+warning: the variable `index` is used as a loop counter
+  --> src\lib.rs:63:9
+   |
+63 |         for frame in frames {
+   |         ^^^^^^^^^^^^^^^^^^^ help: consider using: `for (index, frame) in frames.into_iter().enumerate()`
+   |
+   = note: `#[warn(clippy::explicit_counter_loop)]` on by default
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#explicit_counter_loop
+
+warning: this creates an owned instance just for comparison
+   --> src\lib.rs:199:5
+    |
+199 |     pins.to_owned() == 10u8
+    |     ^^^^^^^^^^^^^^^ help: try: `pins`
+    |
+    = note: `#[warn(clippy::cmp_owned)]` on by default
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cmp_owned
+
+warning: unneeded `return` statement
+   --> src\lib.rs:227:13
+    |
+227 | /             return 10 + second_strike_bonus(
+228 | |                 get_frame(frames, frame_index+2)
+229 | |             );
+    | |______________^
+    |
+    = note: `#[warn(clippy::needless_return)]` on by default
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#needless_return
+help: remove `return`
+    |
+227 ~             10 + second_strike_bonus(
+228 +                 get_frame(frames, frame_index+2)
+229 +             )
+    |
+
+warning: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+   --> src\lib.rs:237:22
+    |
+237 | fn get_frame(frames: &Vec<Frame>,  frame_index: usize) -> Frame {
+    |                      ^^^^^^^^^^^ help: change this to: `&[Frame]`
+    |
+    = note: `#[warn(clippy::ptr_arg)]` on by default
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#ptr_arg
+
+warning: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+   --> src\lib.rs:230:25
+    |
+230 | fn strike_bonus(frames: &Vec<Frame>, frame: Frame, frame_index: usize) -> i32 {
+    |                         ^^^^^^^^^^^ help: change this to: `&[Frame]`
+    |
+    = note: `#[warn(clippy::ptr_arg)]` on by default
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#ptr_arg
+
+warning: `bowlinggame` (lib) generated 10 warnings
+    Finished dev [unoptimized + debuginfo] target(s) in 0.35s
+

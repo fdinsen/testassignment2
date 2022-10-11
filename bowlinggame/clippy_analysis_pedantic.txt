@@ -1,0 +1,288 @@
+warning: item name ends with its containing module's name
+ --> src\err.rs:2:1
+  |
+2 | / pub enum BowlingErr {
+3 | |     NoRollsLeft,
+4 | |     TooManyPins(u8),
+5 | | }
+  | |_^
+  |
+  = note: `-W clippy::module-name-repetitions` implied by `-W clippy::pedantic`
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#module_name_repetitions
+
+warning: this method could have a `#[must_use]` attribute
+  --> src\lib.rs:26:5
+   |
+26 |     pub fn new() -> Self {
+   |     ^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn new() -> Self`
+   |
+   = note: `-W clippy::must-use-candidate` implied by `-W clippy::pedantic`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#must_use_candidate
+
+warning: docs for function returning `Result` missing `# Errors` section
+  --> src\lib.rs:35:5
+   |
+35 | /     pub fn roll(&mut self, pins: i32) -> Result<(), BowlingErr>{
+36 | |         let frame = get_frame(&self.frames, self.current_frame);
+37 | |         if frame == Frame::None {return Err(BowlingErr::NoRollsLeft)}
+38 | |         self.frames[self.current_frame] = match Frame::roll(frame, pins as u8) {
+...  |
+56 | |         Ok(())
+57 | |     }
+   | |_____^
+   |
+   = note: `-W clippy::missing-errors-doc` implied by `-W clippy::pedantic`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_errors_doc
+
+warning: casting `i32` to `u8` may truncate the value
+  --> src\lib.rs:38:68
+   |
+38 |         self.frames[self.current_frame] = match Frame::roll(frame, pins as u8) {
+   |                                                                    ^^^^^^^^^^
+   |
+   = note: `-W clippy::cast-possible-truncation` implied by `-W clippy::pedantic`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_possible_truncation
+
+warning: casting `i32` to `u8` may lose the sign of the value
+  --> src\lib.rs:38:68
+   |
+38 |         self.frames[self.current_frame] = match Frame::roll(frame, pins as u8) {
+   |                                                                    ^^^^^^^^^^
+   |
+   = note: `-W clippy::cast-sign-loss` implied by `-W clippy::pedantic`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_sign_loss
+
+warning: casting `i32` to `u8` may truncate the value
+  --> src\lib.rs:50:56
+   |
+50 |                         Frame::roll(nextframe.clone(), pins as u8)?
+   |                                                        ^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_possible_truncation
+
+warning: casting `i32` to `u8` may lose the sign of the value
+  --> src\lib.rs:50:56
+   |
+50 |                         Frame::roll(nextframe.clone(), pins as u8)?
+   |                                                        ^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_sign_loss
+
+warning: this method could have a `#[must_use]` attribute
+  --> src\lib.rs:59:5
+   |
+59 |     pub fn score(&self) -> i32 {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: add the attribute: `#[must_use] pub fn score(&self) -> i32`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#must_use_candidate
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+  --> src\lib.rs:64:54
+   |
+64 |                 FrameResult::Hit(r1, r2) => score += (r1 + r2) as i32,
+   |                                                      ^^^^^^^^^^^^^^^^ help: try: `i32::from(r1 + r2)`
+   |
+   = note: `-W clippy::cast-lossless` implied by `-W clippy::pedantic`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+  --> src\lib.rs:77:63
+   |
+77 |                 FrameResult::FinalHit(r1, r2, r3) => score += (r1 + r2 + r3) as i32,
+   |                                                               ^^^^^^^^^^^^^^^^^^^^^ help: try: `i32::from(r1 + r2 + r3)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: this argument is passed by value, but not consumed in the function body
+   --> src\lib.rs:115:25
+    |
+115 |     pub fn score(frame: Frame) -> FrameResult {
+    |                         ^^^^^ help: consider taking a reference instead: `&Frame`
+    |
+    = note: `-W clippy::needless-pass-by-value` implied by `-W clippy::pedantic`
+help: consider marking this type as `Copy`
+   --> src\lib.rs:11:1
+    |
+11  | enum Frame {
+    | ^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#needless_pass_by_value
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:213:9
+    |
+213 |         FrameResult::Spare(r1) => r1 as i32,
+    |         ----------------------^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Spare(r1) | FrameResult::Hit(r1, _)`
+    |
+    = note: `-W clippy::match-same-arms` implied by `-W clippy::pedantic`
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:214:9
+    |
+214 |         FrameResult::Hit(r1, _) => r1 as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:213:9
+    |
+213 |         FrameResult::Spare(r1) => r1 as i32,
+    |         ----------------------^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Spare(r1) | FrameResult::FinalHit(r1, _, _)`
+    |
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:215:9
+    |
+215 |         FrameResult::FinalHit(r1, _, _) => r1 as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:214:9
+    |
+214 |         FrameResult::Hit(r1, _) => r1 as i32,
+    |         -----------------------^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Hit(r1, _) | FrameResult::FinalHit(r1, _, _)`
+    |
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:215:9
+    |
+215 |         FrameResult::FinalHit(r1, _, _) => r1 as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:213:35
+    |
+213 |         FrameResult::Spare(r1) => r1 as i32,
+    |                                   ^^^^^^^^^ help: try: `i32::from(r1)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:214:36
+    |
+214 |         FrameResult::Hit(r1, _) => r1 as i32,
+    |                                    ^^^^^^^^^ help: try: `i32::from(r1)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:215:44
+    |
+215 |         FrameResult::FinalHit(r1, _, _) => r1 as i32,
+    |                                            ^^^^^^^^^ help: try: `i32::from(r1)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:222:9
+    |
+222 |         FrameResult::Spare(r1) => r1 as i32,
+    |         ----------------------^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Spare(r1) | FrameResult::Hit(r1, _)`
+    |
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:223:9
+    |
+223 |         FrameResult::Hit(r1, _) => r1 as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:222:9
+    |
+222 |         FrameResult::Spare(r1) => r1 as i32,
+    |         ----------------------^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Spare(r1) | FrameResult::FinalHit(r1,_,_)`
+    |
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:224:9
+    |
+224 |         FrameResult::FinalHit(r1,_,_) => r1 as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:223:9
+    |
+223 |         FrameResult::Hit(r1, _) => r1 as i32,
+    |         -----------------------^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Hit(r1, _) | FrameResult::FinalHit(r1,_,_)`
+    |
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:224:9
+    |
+224 |         FrameResult::FinalHit(r1,_,_) => r1 as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:222:35
+    |
+222 |         FrameResult::Spare(r1) => r1 as i32,
+    |                                   ^^^^^^^^^ help: try: `i32::from(r1)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:223:36
+    |
+223 |         FrameResult::Hit(r1, _) => r1 as i32,
+    |                                    ^^^^^^^^^ help: try: `i32::from(r1)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:224:42
+    |
+224 |         FrameResult::FinalHit(r1,_,_) => r1 as i32,
+    |                                          ^^^^^^^^^ help: try: `i32::from(r1)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: this match arm has an identical body to another arm
+   --> src\lib.rs:236:9
+    |
+236 |         FrameResult::Hit(r1, r2) => (r1 + r2) as i32,
+    |         ------------------------^^^^^^^^^^^^^^^^^^^^
+    |         |
+    |         help: try merging the arm patterns: `FrameResult::Hit(r1, r2) | FrameResult::FinalHit(r1, r2, _)`
+    |
+    = help: or try changing either arm body
+note: other arm here
+   --> src\lib.rs:237:9
+    |
+237 |         FrameResult::FinalHit(r1, r2, _) => (r1 + r2) as i32,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#match_same_arms
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:236:37
+    |
+236 |         FrameResult::Hit(r1, r2) => (r1 + r2) as i32,
+    |                                     ^^^^^^^^^^^^^^^^ help: try: `i32::from(r1 + r2)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: casting `u8` to `i32` may become silently lossy if you later change the type
+   --> src\lib.rs:237:45
+    |
+237 |         FrameResult::FinalHit(r1, r2, _) => (r1 + r2) as i32,
+    |                                             ^^^^^^^^^^^^^^^^ help: try: `i32::from(r1 + r2)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#cast_lossless
+
+warning: `bowlinggame` (lib) generated 26 warnings
+    Finished dev [unoptimized + debuginfo] target(s) in 0.44s
